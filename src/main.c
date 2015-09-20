@@ -57,8 +57,7 @@ int send_packet_PS2(uint32_t * packet, int size, uint32_t * response) {
                 response[i] = reverse_byte(response[i]);
                 WaitUS(16);
         }
-        if (response[ack_byte] == 0x5a)
-                buff_size += 2 * (response[mode_byte] & 0x0F);
+        buff_size += 2 * (response[mode_byte] & 0x0F);
         for (; i < buff_size; ++i) {
                 SSIDataPut(SSI0_BASE, 0);
                 SSIDataGet(SSI0_BASE, &response[i]);
@@ -82,27 +81,31 @@ uint32_t leave_escape[5] = {0x01, 0x43, 0x00, 0x00, 0x00};
 int main (void) {
         int i, buff_size;
         uint32_t data[d_buf_size] = {0x00,};
+        CallEvery(ToggleLED, 0, 0.25);
         initSPI();
-        buff_size = send_packet_PS2(&poll_and_escape[0], 5, &data[0]);
-        for (i = 0; i < buff_size; ++i) {
-                Printf("0x%02x ", data[i]);
-        }
-        Printf("\n");
-        buff_size = send_packet_PS2(&set_dualshock_mode[0], 9, &data[0]);
-        for (i = 0; i < buff_size; ++i) {
-                Printf("0x%02x ", data[i]);
-        }
-        Printf("\n");
-        buff_size = send_packet_PS2(&set_analog_button_mode[0], 9, &data[0]);
-        for (i = 0; i < buff_size; ++i) {
-                Printf("0x%02x ", data[i]);
-        }
-        Printf("\n");
-        buff_size = send_packet_PS2(&leave_escape[0], 5, &data[0]);
-        for (i = 0; i < buff_size; ++i) {
-                Printf("0x%02x ", data[i]);
-        }
-        Printf("\n");
+        do {
+                buff_size = send_packet_PS2(&poll_and_escape[0], 5, &data[0]);
+                for (i = 0; i < buff_size; ++i) {
+                        Printf("0x%02x ", data[i]);
+                }
+                Printf("\n");
+                buff_size = send_packet_PS2(&set_dualshock_mode[0], 9, &data[0]);
+                for (i = 0; i < buff_size; ++i) {
+                        Printf("0x%02x ", data[i]);
+                }
+                Printf("\n");
+                buff_size = send_packet_PS2(&set_analog_button_mode[0], 9, &data[0]);
+                for (i = 0; i < buff_size; ++i) {
+                        Printf("0x%02x ", data[i]);
+                }
+                Printf("\n");
+                buff_size = send_packet_PS2(&leave_escape[0], 5, &data[0]);
+                for (i = 0; i < buff_size; ++i) {
+                        Printf("0x%02x ", data[i]);
+                }
+                Printf("\n");
+                buff_size = send_packet_PS2(&poll[0], 3, &data[0]);
+        } while (data[1] != 0x79);
         while (1) {
                 int buff_size = send_packet_PS2(&poll[0], 3, &data[0]);
                 for (i = 0; i < buff_size; ++i) {
