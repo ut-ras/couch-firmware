@@ -91,7 +91,7 @@ CFLAGS     += -g3
 CFLAGS     += -ffunction-sections
 CFLAGS     += -fdata-sections
 CFLAGS     += -fsingle-precision-constant
-CFLAGS     += -I$(TW_DIR)/.. -I$(INCLUDES) -I$(RAS_DIR)/..
+CFLAGS     += -I$(TW_DIR)/.. -I $(TW_DIR) -I$(INCLUDES) -I$(RAS_DIR)/..
 CFLAGS     += -O3
 
 LIBS	   += ras
