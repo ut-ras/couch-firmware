@@ -112,6 +112,9 @@ int main (void) {
                         w = - w;
                         if (x == -128) x = -127;
                         x = - x;
+                        if (x * x < 400) x = 0;
+                        if (y * y < 400) y = 0;
+                        if (w * w < 400) w = 0;
                         fPutc(uart4, 'G');
                         fPutc(uart4, x);
                         fPutc(uart4, y);
