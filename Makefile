@@ -15,10 +15,10 @@ INCLUDES      ?= inc
 TOOL          ?= $(shell dirname `which arm-none-eabi-gcc`)
 
 # Path to the root of your (Stellaris|Tiva)Ware folder
-TW_DIR        ?= $(HOME)/src/StellarisWare
+TW_DIR        ?= /usr/local/lib/StellarisWare
 
 # Path to the root of yor RASLib folder
-RAS_DIR				?= $(HOME)/src/C/Rasware/RASLib
+RAS_DIR				?= $(HOME)/ras/Rasware/RASLib
 
 # Part Number
 Part_Number   ?= LM4F120H5QR
