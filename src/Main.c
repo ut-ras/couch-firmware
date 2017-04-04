@@ -46,9 +46,9 @@ void set_motor_speeds();
 // do stuff
 int main(void) {
 
-    initialize();
+	initialize();
 
-    while (1) {
+	while (1) {
 	// print commands
 	Printf("\nRASCOUCHATOR: ");
 
@@ -87,31 +87,31 @@ int main(void) {
 	}
 
 	set_motor_speeds();
-    }
+	}
 }
 
 // initializes pins and stuff
 void initialize(){
-    pwm_span = pwm_max - pwm_min;
-    pwm_half_span = pwm_span / 2;
-    pwm_neutral = pwm_min + pwm_half_span;
+	pwm_span = pwm_max - pwm_min;
+	pwm_half_span = pwm_span / 2;
+	pwm_neutral = pwm_min + pwm_half_span;
 
-    right_motor = InitializePWM(right_motor_pin, motor_pwm_freq);
-    left_motor = InitializePWM(left_motor_pin, motor_pwm_freq);
-    set_motor_speeds();
+	right_motor = InitializePWM(right_motor_pin, motor_pwm_freq);
+	left_motor = InitializePWM(left_motor_pin, motor_pwm_freq);
+	set_motor_speeds();
 }
 
 // sets the motor speeds based on right/left speed variables
 void set_motor_speeds(){
-    float right = right_speed*pwm_half_span+pwm_half_span+pwm_min;
-    float left = left_speed*pwm_half_span+pwm_half_span+pwm_min;
-    SetPWM(right_motor, right, 0);
-    SetPWM(left_motor, left, 0);
-    Printf(" (");
-    Printf("%.2f", left_speed);
-    Printf(" / ");
-    Printf("%.2f", right_speed);
-    Printf(") ");
+	float right = right_speed*pwm_half_span+pwm_half_span+pwm_min;
+	float left = left_speed*pwm_half_span+pwm_half_span+pwm_min;
+	SetPWM(right_motor, right, 0);
+	SetPWM(left_motor, left, 0);
+	Printf(" (");
+	Printf("%.2f", left_speed);
+	Printf(" / ");
+	Printf("%.2f", right_speed);
+	Printf(") ");
 }
 
 /*
