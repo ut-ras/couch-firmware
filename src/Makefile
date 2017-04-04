@@ -2,7 +2,7 @@
 TARGET = RASTemplate.out
 
 # Library Locations
-RASLIB = ../RASLib
+RASLIB = ../raslib
 STELLARIS = /usr/local/lib/StellarisWare
 CORTEXM4 = /usr/local/lib/CortexM4Libs
 ARMCLIB = $(dir $(shell which $(CC)))..

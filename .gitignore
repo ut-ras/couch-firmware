@@ -1,3 +1,6 @@
 # VIM backup
 *.swp
 
+*.d
+*.out
+
