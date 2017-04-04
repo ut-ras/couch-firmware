@@ -1,9 +1,13 @@
-#include <RASLib/inc/common.h>
-#include <RASLib/inc/gpio.h>
-#include <RASLib/inc/time.h>
+#include <raslib/inc/common.h>
+#include <raslib/inc/gpio.h>
+#include <raslib/inc/time.h>
+#include <raslib/inc/PWM.h>
 
 // Blink the LED to show we're on
 tBoolean blink_on = true;
+
+tPWM right_motor;
+tPWM left_motor;
 
 void blink(void) {
     SetPin(PIN_F3, blink_on);
