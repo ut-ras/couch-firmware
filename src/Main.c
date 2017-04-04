@@ -22,3 +22,14 @@ int main(void) {
         
     }
 }
+
+/*
+ * Jaguar PWM Specifications
+ *
+ * min pulse width : .67 us
+ * neutral width : 1.5 us
+ * max width : 2.33 us
+ * servo signal period: 5.0125 < x < 29.985 us
+ * valid pulse width range: 0.5 < x < 2.50625 us
+ * duty cycle range : 50%
+ */
