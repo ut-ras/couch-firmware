@@ -1,0 +1,6 @@
+
+*.d
+*.out
+
+# VIM backup
+*.swp
