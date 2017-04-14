@@ -6,31 +6,32 @@
 #include <raslib/inc/time.h>
 #include <raslib/inc/pwm.h>
 #include <raslib/inc/uart.h>
+#include <raslib/inc/servo.h>
 
 // declare components
 tPWM * right_motor;
 tPWM * left_motor;
 
 // define pins
-#define right_motor_pin PIN_F1
-#define left_motor_pin PIN_F2
-#define red_led_pin PIN_F1
-#define green PIN_F3
-#define blue_led_pin PIN_F2
+#define right_motor_pin PIN_E1
+#define left_motor_pin PIN_E2
+//#define red_led_pin PIN_B5
+//#define green PIN_F3
+//#define blue_led_pin PIN_F2
 
 // magic numbers
-#define motor_pwm_freq 50000.0f // 20 us signal period
-#define pwm_min 0.0f //3.35f // percentage of 20 us signal for minimum pulse
-#define pwm_max 100.0f //11.65f // percentage of 20 us signal for maximum pulse
+#define motor_pwm_freq 50.0f //50000.0f // 20 us signal period
+#define pwm_min .0335f // percentage of 20 us signal for minimum pulse
+#define pwm_max .1165f // percentage of 20 us signal for maximum pulse
 float pwm_span = 0;
 float pwm_half_span = 0;
 float pwm_neutral = 0;
 
 // serial control
-char left_up = 'r';
-char left_down = 'f';
-char right_up = 'u';
-char right_down = 'j';
+char left_up = 'f';
+char left_down = 'r';
+char right_up = 'j';
+char right_down = 'u';
 char kill = 'k';
 float speed_increment = .5;
 
@@ -46,7 +47,11 @@ void set_motor_speeds();
 // do stuff
 int main(void) {
 
+
 	initialize();
+
+	//leftservo = InitializeServo(PIN_F1);
+	//SetServo(leftservo, 0.5);
 
 	while (1) {
 	// print commands
@@ -105,6 +110,8 @@ void initialize(){
 void set_motor_speeds(){
 	float right = right_speed*pwm_half_span+pwm_half_span+pwm_min;
 	float left = left_speed*pwm_half_span+pwm_half_span+pwm_min;
+
+	//SetServo(leftservo, (left_speed + 1)*0.5);
 	SetPWM(right_motor, right, 0);
 	SetPWM(left_motor, left, 0);
 	Printf(" (");
@@ -117,11 +124,11 @@ void set_motor_speeds(){
 /*
  * Jaguar PWM Specifications
  *
- * min pulse width : .67 us
- * neutral width : 1.5 us
- * max width : 2.33 us
- * servo signal period: 5.0125 < x < 29.985 us
- * valid pulse width range: 0.5 < x < 2.50625 us
+ * min pulse width : .67 ms
+ * neutral width : 1.5 ms
+ * max width : 2.33 ms
+ * servo signal period: 5.0125 < x < 29.985 ms
+ * valid pulse width range: 0.5 < x < 2.50625 ms
  * duty cycle range : 50%
  *
  * note: pulse widths follow linear distribution
